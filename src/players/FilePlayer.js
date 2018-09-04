@@ -118,6 +118,20 @@ export class FilePlayer extends Component {
         this.dash.getDebug().setLogToBrowserConsole(false)
       })
     }
+
+    /* This can fix the bug https://github.com/CookPete/react-player/issues/481
+    if (url instanceof Array ) {
+      // Whenever working with multiple sources (array), it seems
+      // to be required to signal manually the browser of the source change.
+      // Just replacing children source dom nodes is not enough
+      try {
+        this.player.srcObject = null
+      } catch (e) {
+
+      }
+    }
+    */
+
     if (isMediaStream(url)) {
       try {
         this.player.srcObject = url
@@ -189,6 +203,13 @@ export class FilePlayer extends Component {
     return url
   }
   renderSourceElement = (source, index) => {
+    /* This was a first attempt to fix https://github.com/CookPete/react-player/issues/481
+     * Unfortunately it's not working
+    if (typeof source === 'string') {
+      return <source key={`${source}-${index}`} src={source} />
+    }
+    return <source key={`${source.src}-${index}`} {...source} />
+    */
     if (typeof source === 'string') {
       return <source key={index} src={source} />
     }
@@ -208,6 +229,7 @@ export class FilePlayer extends Component {
       width: width === 'auto' ? width : '100%',
       height: height === 'auto' ? height : '100%'
     }
+
     return (
       <Element
         ref={this.ref}
