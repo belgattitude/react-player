@@ -205,89 +205,20 @@ class App extends Component {
           <table>
             <tbody>
               <tr>
-                <th>YouTube</th>
+                <th>Single</th>
                 <td>
-                  {this.renderLoadButton('https://www.youtube.com/watch?v=oUFJJNQGwhk', 'Test A')}
-                  {this.renderLoadButton('https://www.youtube.com/watch?v=jNgP6d9HraI', 'Test B')}
+                  {this.renderLoadButton('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', 'Single Elephant')}
+                  {this.renderLoadButton('http://clips.vorwaerts-gmbh.de/big_buck_bunny.webm', 'Single Bunny')}
                 </td>
               </tr>
               <tr>
-                <th>SoundCloud</th>
+                <th>Multiple</th>
                 <td>
-                  {this.renderLoadButton('https://soundcloud.com/miami-nights-1984/accelerated', 'Test A')}
-                  {this.renderLoadButton('https://soundcloud.com/tycho/tycho-awake', 'Test B')}
+                  {this.renderLoadButton(MULTIPLE_SOURCES, 'Multiple Bunny')}
+                  {this.renderLoadButton(MULTIPLE_SOURCES2, 'Multiple Elephant')}
                 </td>
               </tr>
-              <tr>
-                <th>Facebook</th>
-                <td>
-                  {this.renderLoadButton('https://www.facebook.com/facebook/videos/10153231379946729/', 'Test A')}
-                  {this.renderLoadButton('https://www.facebook.com/FacebookDevelopers/videos/10152454700553553/', 'Test B')}
-                </td>
-              </tr>
-              <tr>
-                <th>Vimeo</th>
-                <td>
-                  {this.renderLoadButton('https://vimeo.com/90509568', 'Test A')}
-                  {this.renderLoadButton('https://vimeo.com/169599296', 'Test B')}
-                </td>
-              </tr>
-              <tr>
-                <th>Twitch</th>
-                <td>
-                  {this.renderLoadButton('https://www.twitch.tv/videos/106400740', 'Test A')}
-                  {this.renderLoadButton('https://www.twitch.tv/videos/12783852', 'Test B')}
-                  {this.renderLoadButton('https://www.twitch.tv/kronovi', 'Test C')}
-                </td>
-              </tr>
-              <tr>
-                <th>Streamable</th>
-                <td>
-                  {this.renderLoadButton('https://streamable.com/moo', 'Test A')}
-                  {this.renderLoadButton('https://streamable.com/ifjh', 'Test B')}
-                </td>
-              </tr>
-              <tr>
-                <th>Wistia</th>
-                <td>
-                  {this.renderLoadButton('https://home.wistia.com/medias/e4a27b971d', 'Test A')}
-                  {this.renderLoadButton('https://home.wistia.com/medias/29b0fbf547', 'Test B')}
-                </td>
-              </tr>
-              <tr>
-                <th>DailyMotion</th>
-                <td>
-                  {this.renderLoadButton('https://www.dailymotion.com/video/x5e9eog', 'Test A')}
-                  {this.renderLoadButton('https://www.dailymotion.com/video/x61xx3z', 'Test B')}
-                </td>
-              </tr>
-              <tr>
-                <th>Mixcloud</th>
-                <td>
-                  {this.renderLoadButton('https://www.mixcloud.com/mixcloud/meet-the-curators/', 'Test A')}
-                  {this.renderLoadButton('https://www.mixcloud.com/mixcloud/mixcloud-curates-4-mary-anne-hobbs-in-conversation-with-dan-deacon/', 'Test B')}
-                </td>
-              </tr>
-              <tr>
-                <th>Files</th>
-                <td>
-                  {this.renderLoadButton('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', 'mp4')}
-                  {this.renderLoadButton('http://clips.vorwaerts-gmbh.de/big_buck_bunny.ogv', 'ogv')}
-                  {this.renderLoadButton('http://clips.vorwaerts-gmbh.de/big_buck_bunny.webm', 'webm')}
-                  {this.renderLoadButton('https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3', 'mp3')}
-                  {this.renderLoadButton(MULTIPLE_SOURCES, 'Multiple')}
-                  {this.renderLoadButton(MULTIPLE_SOURCES2, 'Multiple2')}
-                  {this.renderLoadButton('https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8', 'HLS (m3u8)')}
-                  {this.renderLoadButton('http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd', 'DASH (mpd)')}
-                </td>
-              </tr>
-              <tr>
-                <th>Custom URL</th>
-                <td>
-                  <input ref={input => { this.urlInput = input }} type='text' placeholder='Enter URL' />
-                  <button onClick={() => this.setState({url: this.urlInput.value})}>Load</button>
-                </td>
-              </tr>
+
             </tbody>
           </table>
 
@@ -298,7 +229,12 @@ class App extends Component {
               <tr>
                 <th>url</th>
                 <td className={!url ? 'faded' : ''}>
-                  {(url instanceof Array ? 'Multiple' : url) || 'null'}
+                  {(url instanceof Array ?
+                    url.map(v => (
+                      <li key={v.src}>{v.src} / {v.type}</li>
+                    ))
+                    : url) || 'null'
+                  }
                 </td>
               </tr>
               <tr>
