@@ -107,6 +107,84 @@ class App extends Component {
 
     return (
       <div className='app'>
+        <h1>React player</h1>
+        <div style={{width: '800px', height: '400px'}}>
+          <ReactPlayer
+            playsinline={true}
+            playing={true}
+            controls={true}
+            style={{width: '100%', height: '100%'}}
+            url={[
+              {
+                src: 'https://assets.materialforthespine.com/videos/pointing_scapula.webm',
+                type: 'video/webm; vp9'
+              },
+              {
+                src: 'https://assets.materialforthespine.com/videos/pointing_scapula.mp4',
+                type: 'video/mp4'
+              }
+            ]}
+            config={{
+              file: {
+                attributes: {
+                  crossOrigin: 'anonymous'
+                },
+                tracks: [
+                  {
+                    kind: 'subtitles',
+                    src: 'https://assets.materialforthespine.com/videos/pointing_scapula.en.vtt',
+                    srcLang: 'en',
+                    default: true,
+                    label: 'en'
+                  },
+                  {
+                    kind: 'subtitles',
+                    src: 'https://assets.materialforthespine.com/videos/pointing_scapula.fr.vtt',
+                    srcLang: 'fr',
+                    label: 'fr'
+                  }
+                ]
+              }
+            }}
+          />
+
+        </div>
+        <h1>Native player</h1>
+        <div style={{width: '800px', height: '400px'}}>
+          <video
+            controls={true}
+            autoPlay={true}
+            crossOrigin="anonymous"
+            preload="auto"
+            playsInline
+            webkit-playsinline="webkit-playsinline"
+            style={{width: '100%', height: '100%'}}
+          >
+            <source
+              src="https://assets.materialforthespine.com/videos/pointing_scapula.webm"
+              type="video/webm; vp9"
+            />
+            <source
+              src="https://assets.materialforthespine.com/videos/pointing_scapula.mp4"
+              type="video/mp4"
+            />
+            <track
+              kind="subtitles"
+              src="https://assets.materialforthespine.com/videos/pointing_scapula.en.vtt"
+              srcLang="en"
+              default={true}
+              label="en"
+            />
+            <track
+              kind="subtitles"
+              src="https://assets.materialforthespine.com/videos/pointing_scapula.fr.vtt"
+              srcLang="fr"
+              label="fr"
+            />
+          </video>
+        </div>
+
+
         <section className='section'>
           <h1>ReactPlayer Demo</h1>
           <div className='player-wrapper'>
